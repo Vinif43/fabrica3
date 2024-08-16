@@ -66,11 +66,13 @@ export function StudentsTable({ students }: StudentsTableProps) {
     }
   }
 
+  const sortedStudents = students.sort((a, b) => a.nome.localeCompare(b.nome))
+
   if (isMobile) {
     // Exibir cards no celular
     return (
       <div className="p-4 space-y-4">
-        {students.map((student) => {
+        {sortedStudents.map((student) => {
           const currentDate = new Date().toISOString().split('T')[0]
           const existingPresence = presences.find(
             (presence) =>
@@ -84,7 +86,7 @@ export function StudentsTable({ students }: StudentsTableProps) {
             >
               <h3 className="text-lg font-bold">{student.nome}</h3>
               <p>RGM: {student.rgm}</p>
-              <p>Turma: {student.turma}</p>
+              {/* <p>Turma: {student.turma}</p> */}
               <div className="mt-4">
                 {existingPresence ? (
                   <span
@@ -140,12 +142,12 @@ export function StudentsTable({ students }: StudentsTableProps) {
         <TableRow className="font-bold text-white">
           <TableHead className="w-[100px]">Presença</TableHead>
           <TableHead>Nome</TableHead>
-          <TableHead>RGM</TableHead>
-          <TableHead className="text-right">Turma</TableHead>
+          <TableHead className="text-right">RGM</TableHead>
+          {/* <TableHead className="text-right">Turma</TableHead> */}
         </TableRow>
       </TableHeader>
       <TableBody className="">
-        {students.map((student) => {
+        {sortedStudents.map((student) => {
           const currentDate = new Date().toISOString().split('T')[0]
           const existingPresence = presences.find(
             (presence) =>
@@ -195,8 +197,8 @@ export function StudentsTable({ students }: StudentsTableProps) {
                 )}
               </TableCell>
               <TableCell>{student.nome}</TableCell>
-              <TableCell>{student.rgm}</TableCell>
-              <TableCell className="text-right">{student.turma}</TableCell>
+              <TableCell className="text-right">{student.rgm}</TableCell>
+              {/* <TableCell className="text-right">{student.turma}</TableCell> */}
             </TableRow>
           )
         })}
