@@ -5,17 +5,17 @@ const handler = NextAuth({
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        email: { label: 'email', type: 'email' },
+        username: { label: 'username', type: 'username' },
         password: { label: 'password', type: 'password' },
       },
       async authorize(credentials) {
-        const res = await fetch(`http://127.0.0.1:8000/token/login/`, {
+        const res = await fetch(`http://127.0.0.1:8000/login/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            email: credentials?.email,
+            username: credentials?.username,
             password: credentials?.password,
           }),
         })

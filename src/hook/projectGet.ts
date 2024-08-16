@@ -1,12 +1,12 @@
 import { Project } from '@/@types'
-import { getProcet } from '@/services'
+import { getProject } from '@/services'
 import { useQuery } from '@tanstack/react-query'
 
 export function projectGet() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { data, error, isLoading, isError, refetch } = useQuery<Project[]>({
     queryKey: ['projects'],
-    queryFn: getProcet,
+    queryFn: getProject,
   })
 
   console.log(data)
@@ -18,5 +18,5 @@ export function projectGet() {
     refetch()
   }
 
-  return { projects, error, isLoading, isError }
+  return { projects, error, isLoading, projectsRefetch, isError }
 }

@@ -24,13 +24,13 @@ export default function Login() {
     try {
       const res = await signIn('credentials', {
         redirect: false,
-        email: data.email,
+        username: data.username,
         password: data.password,
       })
 
       if (res?.error) {
         console.log(res.error)
-        toast.error('Email ou senha incorretos')
+        toast.error('Nome de usário ou senha incorretos')
       } else {
         toast.success('Login realizado com sucesso')
         router.push('/dashboard')
@@ -61,14 +61,14 @@ export default function Login() {
               id="login"
               placeholder="Login"
               className="bg-white border-white border-2  text-lg  xl:pl-3 pl-16 py-5 rounded-lg w-full"
-              {...register('email')}
+              {...register('username')}
             />
             <label htmlFor="login">
               <FiUser className="text-[#482DA5] text-3xl absolute top-5 xl:right-3 xl:left-auto left-6" />
             </label>
-            {errors.email && (
+            {errors.username && (
               <span className="text-red-500 text-sm">
-                {errors.email.message}
+                {errors.username.message}
               </span>
             )}
           </article>
