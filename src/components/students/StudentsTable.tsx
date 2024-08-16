@@ -82,7 +82,7 @@ export function StudentsTable({ students }: StudentsTableProps) {
           return (
             <div
               key={student.id}
-              className="bg-purple-800 text-white p-4 rounded-lg shadow-md"
+              className="bg-purple-800 hover:bg-purple-600 transition-colors text-purple-200 p-4 rounded-lg shadow-md"
             >
               <h3 className="text-lg font-bold">{student.nome}</h3>
               <p>RGM: {student.rgm}</p>
@@ -90,7 +90,7 @@ export function StudentsTable({ students }: StudentsTableProps) {
               <div className="mt-4">
                 {existingPresence ? (
                   <span
-                    className={`px-4 py-2 rounded-full font-semibold ${
+                    className={`px-4 py-2 rounded-full text-white font-semibold ${
                       existingPresence.situacao === 'PR'
                         ? 'bg-green-500'
                         : existingPresence.situacao === 'JU'
@@ -205,7 +205,7 @@ export function StudentsTable({ students }: StudentsTableProps) {
       </TableBody>
       <TableFooter className="text-white">
         <TableRow>
-          <TableCell colSpan={3}>Total de alunos</TableCell>
+          <TableCell colSpan={2}>Total de alunos</TableCell>
           <TableCell className="text-right">{students.length}</TableCell>
         </TableRow>
       </TableFooter>

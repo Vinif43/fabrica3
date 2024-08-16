@@ -7,7 +7,7 @@ export default function Header() {
       <img
         src="/img/branco-com-preenchimento.png"
         alt="Logo"
-        className="h-10 w-10"
+        className="h-10 w-10 object-contain"
       />
       <nav>
         <ul className="flex gap-2 md:space-x-8 text-center">
