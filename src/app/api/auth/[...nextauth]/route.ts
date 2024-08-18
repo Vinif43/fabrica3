@@ -1,3 +1,4 @@
+import { baseUrl } from '@/services'
 import NextAuth from 'next-auth/next'
 import CredentialsProvider from 'next-auth/providers/credentials'
 const handler = NextAuth({
@@ -9,7 +10,7 @@ const handler = NextAuth({
         password: { label: 'password', type: 'password' },
       },
       async authorize(credentials) {
-        const res = await fetch(`http://127.0.0.1:8000/login/`, {
+        const res = await fetch(`${baseUrl}/login/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

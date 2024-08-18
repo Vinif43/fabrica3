@@ -41,7 +41,17 @@ export function StudentsTable({ students }: StudentsTableProps) {
   }, [])
 
   const handlePresenceChange = async (studentId: number, status: string) => {
-    const currentDate = new Date().toISOString().split('T')[0]
+    // passar  data de hoje no brasileiro
+    // const currentDate = new Date().toISOString().split('T')[0]
+    const currentDate = new Date().toLocaleDateString('en-CA', {
+      timeZone: 'America/Sao_Paulo',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+    // mes dia ano
+
+    console.log(currentDate)
 
     const presenceData = {
       aluno: studentId,
@@ -73,7 +83,12 @@ export function StudentsTable({ students }: StudentsTableProps) {
     return (
       <div className="p-4 space-y-4">
         {sortedStudents.map((student) => {
-          const currentDate = new Date().toISOString().split('T')[0]
+          const currentDate = new Date().toLocaleDateString('en-CA', {
+            timeZone: 'America/Sao_Paulo',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          })
           const existingPresence = presences.find(
             (presence) =>
               presence.aluno === student.id && presence.data === currentDate,
@@ -84,7 +99,7 @@ export function StudentsTable({ students }: StudentsTableProps) {
               key={student.id}
               className="bg-purple-800 hover:bg-purple-600 transition-colors text-purple-200 p-4 rounded-lg shadow-md"
             >
-              <h3 className="text-lg font-bold">{student.nome}</h3>
+              <h3 className="text-lg font-bold">{student.nome} </h3>
               <p>RGM: {student.rgm}</p>
               {/* <p>Turma: {student.turma}</p> */}
               <div className="mt-4">
@@ -141,14 +156,19 @@ export function StudentsTable({ students }: StudentsTableProps) {
       <TableHeader>
         <TableRow className="font-bold text-white">
           <TableHead className="w-[100px]">Presença</TableHead>
-          <TableHead>Nome</TableHead>
+          <TableHead className="text-left">Nome</TableHead>
           <TableHead className="text-right">RGM</TableHead>
           {/* <TableHead className="text-right">Turma</TableHead> */}
         </TableRow>
       </TableHeader>
       <TableBody className="">
         {sortedStudents.map((student) => {
-          const currentDate = new Date().toISOString().split('T')[0]
+          const currentDate = new Date().toLocaleDateString('en-CA', {
+            timeZone: 'America/Sao_Paulo',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          })
           const existingPresence = presences.find(
             (presence) =>
               presence.aluno === student.id && presence.data === currentDate,
@@ -196,7 +216,7 @@ export function StudentsTable({ students }: StudentsTableProps) {
                   </div>
                 )}
               </TableCell>
-              <TableCell>{student.nome}</TableCell>
+              <TableCell className="text-left">{student.nome}</TableCell>
               <TableCell className="text-right">{student.rgm}</TableCell>
               {/* <TableCell className="text-right">{student.turma}</TableCell> */}
             </TableRow>

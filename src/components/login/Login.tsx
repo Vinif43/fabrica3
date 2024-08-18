@@ -33,7 +33,7 @@ export default function Login() {
         toast.error('Nome de usário ou senha incorretos')
       } else {
         toast.success('Login realizado com sucesso')
-        router.push('/dashboard')
+        router.push('/students')
       }
     } catch (error) {
       console.error(error)
