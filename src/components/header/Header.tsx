@@ -24,7 +24,7 @@ export default function Header() {
           <li>
             <Link
               className="hover:text-purple-300 transition-colors"
-              href="/students"
+              href="/acesso/students"
             >
               Realizar presença
             </Link>
@@ -32,7 +32,7 @@ export default function Header() {
           <li>
             <Link
               className="hover:text-purple-300 transition-colors"
-              href="/presenca"
+              href="/acesso/presenca"
             >
               Presenças passadas
             </Link>

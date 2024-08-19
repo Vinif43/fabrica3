@@ -7,7 +7,8 @@ export default function PresencaList() {
   const { students } = studentGet()
 
   const [search, setSearch] = useState('')
-  const [date, setDate] = useState('')
+  // data padrao ser dia 18/08/2024
+  const [date, setDate] = useState('2024-08-19')
 
   return (
     <>
