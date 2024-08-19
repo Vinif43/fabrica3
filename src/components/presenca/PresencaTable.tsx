@@ -124,24 +124,27 @@ export function StudentsTable({ students, date, search }: StudentsTableProps) {
   ) => {
     if (!existingPresence && date) {
       return (
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className="flex md:flex-row gap-4">
           <button
             onClick={() => handlePresenceChangePost(idstu, 'PR')}
-            className="rounded-md flex justify-center items-center h-8 w-8 font-semibold text-white bg-green-500 hover:bg-green-600"
+            className="rounded-md flex flex-col justify-center items-center p-2 font-semibold text-white bg-green-500 hover:bg-green-600"
           >
             <FaCheck className="h-5 w-5" />
+            Presente
           </button>
           <button
             onClick={() => handlePresenceChangePost(idstu, 'JU')}
-            className="rounded-md flex justify-center items-center h-8 w-8 font-semibold text-white bg-orange-500 hover:bg-orange-600"
+            className="rounded-md flex flex-col justify-center items-center p-2 font-semibold text-white bg-orange-500 hover:bg-orange-600"
           >
             <MdOutlineSpeakerNotes className="h-5 w-5" />
+            Justificado
           </button>
           <button
             onClick={() => handlePresenceChangePost(idstu, 'AU')}
-            className="rounded-md flex justify-center items-center h-8 w-8 font-semibold text-white bg-red-500 hover:bg-red-600"
+            className="rounded-md flex flex-col justify-center items-center p-2 font-semibold text-white bg-red-500 hover:bg-red-600"
           >
             <IoClose className="h-5 w-5" />
+            Ausente
           </button>
         </div>
       )
@@ -152,7 +155,7 @@ export function StudentsTable({ students, date, search }: StudentsTableProps) {
     }
 
     return (
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex md:flex-row gap-4">
         <button
           onClick={() =>
             handlePresenceChange(
@@ -161,14 +164,15 @@ export function StudentsTable({ students, date, search }: StudentsTableProps) {
               existingPresence.id,
             )
           }
-          className={`rounded-md flex justify-center items-center h-8 w-8 font-semibold text-white ${
+          className={`rounded-md flex flex-col justify-center items-center  p-2 font-semibold text-white ${
             existingPresence.situacao === 'PR'
-              ? 'bg-green-700  border border-white'
+              ? 'bg-green-700/80  border border-white'
               : 'bg-green-500 hover:bg-green-600'
           }`}
           disabled={existingPresence.situacao === 'PR'}
         >
           <FaCheck className="h-5 w-5" />
+          Presente
         </button>
         <button
           onClick={() =>
@@ -178,14 +182,15 @@ export function StudentsTable({ students, date, search }: StudentsTableProps) {
               existingPresence.id,
             )
           }
-          className={`rounded-md flex justify-center items-center h-8 w-8 font-semibold text-white ${
+          className={`rounded-md flex flex-col p-2 justify-center items-center font-semibold text-white ${
             existingPresence.situacao === 'JU'
-              ? 'bg-orange-700 border-white border'
+              ? 'bg-orange-700/80 border-white border'
               : 'bg-orange-500 hover:bg-orange-600'
           }`}
           disabled={existingPresence.situacao === 'JU'}
         >
           <MdOutlineSpeakerNotes className="h-5 w-5" />
+          justificado
         </button>
         <button
           onClick={() =>
@@ -195,14 +200,15 @@ export function StudentsTable({ students, date, search }: StudentsTableProps) {
               existingPresence.id,
             )
           }
-          className={`rounded-md flex justify-center items-center h-8 w-8 font-semibold text-white ${
+          className={`rounded-md flex flex-col p-2 justify-center items-center font-semibold text-white ${
             existingPresence.situacao === 'AU'
-              ? 'bg-red-700 border border-white'
+              ? 'bg-red-700/80 border border-white'
               : 'bg-red-500 hover:bg-red-600'
           }`}
           disabled={existingPresence.situacao === 'AU'}
         >
           <IoClose className="h-5 w-5" />
+          Ausente
         </button>
       </div>
     )

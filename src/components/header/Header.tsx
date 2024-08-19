@@ -20,7 +20,7 @@ export default function Header() {
         className="h-10 w-10 object-contain"
       />
       <nav>
-        <ul className="flex gap-2 md:space-x-8 text-center">
+        <ul className="flex gap-4 md:gap-2 md:space-x-8 text-center">
           <li>
             <Link
               className="hover:text-purple-300 transition-colors"
@@ -34,7 +34,7 @@ export default function Header() {
               className="hover:text-purple-300 transition-colors"
               href="/acesso/presenca"
             >
-              Presenças passadas
+              Historico
             </Link>
           </li>
           <li

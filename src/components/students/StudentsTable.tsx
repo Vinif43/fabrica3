@@ -20,9 +20,10 @@ import { MdOutlineSpeakerNotes } from 'react-icons/md'
 
 interface StudentsTableProps {
   students: Student[]
+  search: string
 }
 
-export function StudentsTable({ students }: StudentsTableProps) {
+export function StudentsTable({ students, search }: StudentsTableProps) {
   // const baseUrl = process.env.NEXT_API_BASE_URL
   const baseUrl = 'http://127.0.0.1:8000'
 
@@ -82,70 +83,74 @@ export function StudentsTable({ students }: StudentsTableProps) {
     // Exibir cards no celular
     return (
       <div className="p-4 space-y-4">
-        {sortedStudents.map((student) => {
-          const currentDate = new Date().toLocaleDateString('en-CA', {
-            timeZone: 'America/Sao_Paulo',
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-          })
-          const existingPresence = presences.find(
-            (presence) =>
-              presence.aluno === student.id && presence.data === currentDate,
+        {sortedStudents
+          .filter((student) =>
+            student.nome.toLowerCase().includes(search.toLowerCase()),
           )
+          .map((student) => {
+            const currentDate = new Date().toLocaleDateString('en-CA', {
+              timeZone: 'America/Sao_Paulo',
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+            })
+            const existingPresence = presences.find(
+              (presence) =>
+                presence.aluno === student.id && presence.data === currentDate,
+            )
 
-          return (
-            <div
-              key={student.id}
-              className="bg-purple-800 hover:bg-purple-600 transition-colors text-purple-200 p-4 rounded-lg shadow-md"
-            >
-              <h3 className="text-lg font-bold">{student.nome} </h3>
-              <p>RGM: {student.rgm}</p>
-              {/* <p>Turma: {student.turma}</p> */}
-              <div className="mt-4">
-                {existingPresence ? (
-                  <span
-                    className={`px-4 py-2 rounded-full text-white font-semibold ${
-                      existingPresence.situacao === 'PR'
-                        ? 'bg-green-500'
+            return (
+              <div
+                key={student.id}
+                className="bg-purple-800 hover:bg-purple-600 transition-colors text-purple-200 p-4 rounded-lg shadow-md"
+              >
+                <h3 className="text-lg font-bold">{student.nome} </h3>
+                <p>RGM: {student.rgm}</p>
+                {/* <p>Turma: {student.turma}</p> */}
+                <div className="mt-4">
+                  {existingPresence ? (
+                    <span
+                      className={`px-4 py-2 rounded-full text-white font-semibold ${
+                        existingPresence.situacao === 'PR'
+                          ? 'bg-green-500'
+                          : existingPresence.situacao === 'JU'
+                            ? 'bg-orange-500'
+                            : 'bg-red-500'
+                      }`}
+                    >
+                      {existingPresence.situacao === 'PR'
+                        ? 'Presente'
                         : existingPresence.situacao === 'JU'
-                          ? 'bg-orange-500'
-                          : 'bg-red-500'
-                    }`}
-                  >
-                    {existingPresence.situacao === 'PR'
-                      ? 'Presente'
-                      : existingPresence.situacao === 'JU'
-                        ? 'Justificado'
-                        : 'Ausente'}
-                  </span>
-                ) : (
-                  <div className="flex justify-center items-center gap-2">
-                    <button
-                      onClick={() => handlePresenceChange(student.id, 'PR')}
-                      className="flex flex-col items-center justify-center p-2 font-semibold text-white text-sm bg-green-500 rounded-lg"
-                    >
-                      <FaCheck className="inline-block mr-2" /> Presente
-                    </button>
-                    <button
-                      onClick={() => handlePresenceChange(student.id, 'JU')}
-                      className="flex flex-col items-center justify-center p-2 font-semibold text-white text-sm bg-orange-500 rounded-lg"
-                    >
-                      <MdOutlineSpeakerNotes className="inline-block mr-2" />{' '}
-                      Justificado
-                    </button>
-                    <button
-                      onClick={() => handlePresenceChange(student.id, 'AU')}
-                      className="flex flex-col items-center justify-center p-2 font-semibold text-white text-sm bg-red-500 rounded-lg"
-                    >
-                      <IoClose className="inline-block mr-2" /> Ausente
-                    </button>
-                  </div>
-                )}
+                          ? 'Justificado'
+                          : 'Ausente'}
+                    </span>
+                  ) : (
+                    <div className="flex justify-center items-center gap-2">
+                      <button
+                        onClick={() => handlePresenceChange(student.id, 'PR')}
+                        className="flex flex-col items-center justify-center p-2 font-semibold text-white text-sm bg-green-500 rounded-lg"
+                      >
+                        <FaCheck className="inline-block mr-2" /> Presente
+                      </button>
+                      <button
+                        onClick={() => handlePresenceChange(student.id, 'JU')}
+                        className="flex flex-col items-center justify-center p-2 font-semibold text-white text-sm bg-orange-500 rounded-lg"
+                      >
+                        <MdOutlineSpeakerNotes className="inline-block mr-2" />{' '}
+                        Justificado
+                      </button>
+                      <button
+                        onClick={() => handlePresenceChange(student.id, 'AU')}
+                        className="flex flex-col items-center justify-center p-2 font-semibold text-white text-sm bg-red-500 rounded-lg"
+                      >
+                        <IoClose className="inline-block" /> Ausente
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
       </div>
     )
   }
@@ -162,66 +167,70 @@ export function StudentsTable({ students }: StudentsTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody className="">
-        {sortedStudents.map((student) => {
-          const currentDate = new Date().toLocaleDateString('en-CA', {
-            timeZone: 'America/Sao_Paulo',
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-          })
-          const existingPresence = presences.find(
-            (presence) =>
-              presence.aluno === student.id && presence.data === currentDate,
+        {sortedStudents
+          .filter((student) =>
+            student.nome.toLowerCase().includes(search.toLowerCase()),
           )
+          .map((student) => {
+            const currentDate = new Date().toLocaleDateString('en-CA', {
+              timeZone: 'America/Sao_Paulo',
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+            })
+            const existingPresence = presences.find(
+              (presence) =>
+                presence.aluno === student.id && presence.data === currentDate,
+            )
 
-          return (
-            <TableRow key={student.id} className="text-center font-semibold">
-              <TableCell className="font-medium">
-                {existingPresence ? (
-                  <span
-                    className={`px-4 py-2 rounded-full font-semibold text-white ${
-                      existingPresence.situacao === 'PR'
-                        ? 'bg-green-500'
+            return (
+              <TableRow key={student.id} className="text-center font-semibold">
+                <TableCell className="font-medium">
+                  {existingPresence ? (
+                    <span
+                      className={`px-4 py-2 rounded-full font-semibold text-white ${
+                        existingPresence.situacao === 'PR'
+                          ? 'bg-green-500'
+                          : existingPresence.situacao === 'JU'
+                            ? 'bg-orange-500'
+                            : 'bg-red-500'
+                      }`}
+                    >
+                      {existingPresence.situacao === 'PR'
+                        ? 'Presente'
                         : existingPresence.situacao === 'JU'
-                          ? 'bg-orange-500'
-                          : 'bg-red-500'
-                    }`}
-                  >
-                    {existingPresence.situacao === 'PR'
-                      ? 'Presente'
-                      : existingPresence.situacao === 'JU'
-                        ? 'Justificado'
-                        : 'Ausente'}
-                  </span>
-                ) : (
-                  <div className="flex flex-col md:flex-row gap-4">
-                    <button
-                      onClick={() => handlePresenceChange(student.id, 'PR')}
-                      className="rounded-md flex justify-center items-center h-8 w-8 font-semibold text-white bg-green-500"
-                    >
-                      <FaCheck className="h-5 w-5" />
-                    </button>
-                    <button
-                      onClick={() => handlePresenceChange(student.id, 'JU')}
-                      className="rounded-md flex justify-center items-center h-8 w-8 font-semibold text-white bg-orange-500"
-                    >
-                      <MdOutlineSpeakerNotes className="h-5 w-5" />
-                    </button>
-                    <button
-                      onClick={() => handlePresenceChange(student.id, 'AU')}
-                      className="rounded-md flex justify-center items-center h-8 w-8 font-semibold text-white bg-red-500"
-                    >
-                      <IoClose className="h-5 w-5" />
-                    </button>
-                  </div>
-                )}
-              </TableCell>
-              <TableCell className="text-left">{student.nome}</TableCell>
-              <TableCell className="text-right">{student.rgm}</TableCell>
-              {/* <TableCell className="text-right">{student.turma}</TableCell> */}
-            </TableRow>
-          )
-        })}
+                          ? 'Justificado'
+                          : 'Ausente'}
+                    </span>
+                  ) : (
+                    <div className="flex flex-col md:flex-row gap-4">
+                      <button
+                        onClick={() => handlePresenceChange(student.id, 'PR')}
+                        className="rounded-md flex justify-center items-center h-8 w-8 font-semibold text-white bg-green-500"
+                      >
+                        <FaCheck className="h-5 w-5" />
+                      </button>
+                      <button
+                        onClick={() => handlePresenceChange(student.id, 'JU')}
+                        className="rounded-md flex justify-center items-center h-8 w-8 font-semibold text-white bg-orange-500"
+                      >
+                        <MdOutlineSpeakerNotes className="h-5 w-5" />
+                      </button>
+                      <button
+                        onClick={() => handlePresenceChange(student.id, 'AU')}
+                        className="rounded-md flex justify-center items-center h-8 w-8 font-semibold text-white bg-red-500"
+                      >
+                        <IoClose className="h-5 w-5" />
+                      </button>
+                    </div>
+                  )}
+                </TableCell>
+                <TableCell className="text-left">{student.nome}</TableCell>
+                <TableCell className="text-right">{student.rgm}</TableCell>
+                {/* <TableCell className="text-right">{student.turma}</TableCell> */}
+              </TableRow>
+            )
+          })}
       </TableBody>
       <TableFooter className="text-white">
         <TableRow>
