@@ -20,6 +20,7 @@ const handler = NextAuth({
             password: credentials?.password,
           }),
         })
+        console.log(res)
         const user = await res.json()
         if (res.ok && user) {
           return user
