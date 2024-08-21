@@ -10,7 +10,7 @@ export default function StudentsList() {
   return (
     <>
       <div className="py-12 flex flex-col justify-center items-center max-w-[83rem] w-full m-auto">
-        <h1 className="font-bold text-purple-900 text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-4">
+        <h1 className="font-bold text-purple-900 text-xl md:text-2xl lg:text-3xl xl:text-3xl mb-4">
           Lista de presenças da turma
         </h1>
         <div className="py-2 max-w-[400px] w-full px-8 md:px-0">

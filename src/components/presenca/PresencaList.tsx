@@ -13,7 +13,7 @@ export default function PresencaList() {
   return (
     <>
       <div className="py-12 flex flex-col m-auto">
-        <h1 className="font-bold text-purple-900 text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-4">
+        <h1 className="font-bold text-purple-900 text-center text-xl md:text-2xl lg:text-3xl xl:text-3xl mb-4">
           Lista de presenças da turma
         </h1>
         <div className="flex max-md:flex-col px-4 gap-2 py-2">
@@ -30,7 +30,9 @@ export default function PresencaList() {
             defaultValue={date}
           />
         </div>
-        <StudentsTable students={students} search={search} date={date} />
+       <div className='px-4'>
+       <StudentsTable students={students} search={search} date={date} />
+       </div>
       </div>
     </>
   )
