@@ -21,7 +21,9 @@ export default function StudentsList() {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <StudentsTable students={students} search={search} />
+       <div className='px-4 w-full'>
+       <StudentsTable students={students} search={search} />
+       </div>
       </div>
     </>
   )
