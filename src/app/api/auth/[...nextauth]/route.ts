@@ -13,7 +13,7 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         try {
-          const res = await fetch(`https://bfabponto.pbdevs.com.br/login/`, {
+          const res = await fetch(`${baseUrl}/login/`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
