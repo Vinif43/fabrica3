@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { getSession } from 'next-auth/react'
 
-export const baseUrl = 'http://127.0.0.1:8000'
+export const baseUrl = 'https://bfabponto.pbdevs.com.br'
 
 export const getProject = async () => {
   const session = await getSession()

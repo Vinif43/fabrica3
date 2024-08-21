@@ -10,6 +10,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { presenceGet } from '@/hook/presenceGet'
+import { baseUrl } from '@/services'
 import axios from 'axios'
 import { getSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
@@ -25,7 +26,6 @@ interface StudentsTableProps {
 
 export function StudentsTable({ students, search }: StudentsTableProps) {
   // const baseUrl = process.env.NEXT_API_BASE_URL
-  const baseUrl = 'http://127.0.0.1:8000'
 
   const [isMobile, setIsMobile] = useState(false)
 
