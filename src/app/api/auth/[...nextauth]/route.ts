@@ -1,6 +1,8 @@
-import { baseUrl } from '@/services'
 import NextAuth from 'next-auth/next'
 import CredentialsProvider from 'next-auth/providers/credentials'
+
+const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL
+console.log(baseUrl)
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
@@ -10,20 +12,23 @@ const handler = NextAuth({
         password: { label: 'password', type: 'password' },
       },
       async authorize(credentials) {
-        const res = await fetch(`${baseUrl}/login/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: credentials?.username,
-            password: credentials?.password,
-          }),
-        })
-        console.log(res)
-        const user = await res.json()
-        if (res.ok && user) {
-          return user
+        try {
+          const res = await fetch(`${baseUrl}/auth/token/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(credentials),
+          })
+          console.log(res)
+          const user = await res.json()
+          if (res.ok && user) {
+            return user
+          }
+          return null
+        } catch (error) {
+          console.log(error)
+          return null
         }
       },
     }),
@@ -33,9 +38,13 @@ const handler = NextAuth({
       return { ...token, ...user }
     },
     async session({ session, token }) {
-      session.user = token as never
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      session.user = token as any
       return session
     },
+  },
+  session: {
+    maxAge: 1 * 23 * 58 * 58,
   },
   pages: {
     signIn: '/',
@@ -45,3 +54,4 @@ const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
 })
 export { handler as GET, handler as POST }
+// dddd
