@@ -1,8 +1,8 @@
+import { baseUrl } from '@/services'
 import NextAuth from 'next-auth/next'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL
-console.log(baseUrl)
+
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
