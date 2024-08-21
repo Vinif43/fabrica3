@@ -13,7 +13,7 @@ export default function StudentsList() {
         <h1 className="font-bold text-purple-900 text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-4">
           Lista de presenças da turma
         </h1>
-        <div className="py-2 max-w-[400px] w-full px-8 md:p-0">
+        <div className="py-2 max-w-[400px] w-full px-8 md:px-0">
           <input
             type="text"
             placeholder="Pesquisar aluno"
