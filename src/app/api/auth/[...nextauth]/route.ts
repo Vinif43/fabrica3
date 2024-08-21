@@ -13,7 +13,7 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         try {
-          const res = await fetch(`${baseUrl}/login/`, {
+          const res = await fetch(`https://backcal2.ligadigital.tech/auth/token/`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
